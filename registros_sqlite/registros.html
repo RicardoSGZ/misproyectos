@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="author" content="Ricardo Sanz" />
+	<meta name="description" content="Registros" />
+	<title>Registros</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		
+		body {
+			margin: 0;
+			font-family: sans-serif;
+		}
+		#btn_pr{
+			font-size: 16pt;
+			padding: 2px 7px 2px 7px;
+			margin: 0px;
+			float: right;
+			border-width: 1px;
+			border-style: solid;
+			outline: none;
+		}
+		#btn_secc_add,
+		#btn_secc_modif,
+		#btn_secc_home,
+		#btn_secc_crtable,
+		#btn_secc_estad {
+			background-color: white;
+			outline: none;
+		}
+		
+		#btn_save {
+			background-color: red;
+			color: white;
+			outline: none;
+			display: none;
+		}
+		#btn_secc_add,
+		#btn_secc_modif,
+		#btn_secc_home,
+		#btn_save,
+		#btn_secc_estad,
+		#btn_secc_crtable,
+		#filexp,
+		#column_type,
+		#search_type,
+		#search_text,
+		#order,
+		#asc_desc,
+		#selecc_table,
+		#submit {
+			width: 100%;
+			margin-bottom: 1.5%;
+			padding: 1%;
+		}
+		[id*="btn_s"]{
+			display: none;
+		}
+
+		#btn_secc_m_search {
+			text-align: center;
+			font-size: 10pt;
+			text-decoration: underline;
+			margin-top: 0.4%;
+			color: blue;
+			background-color: white;
+			border: none;
+			display: block;
+		}
+		
+		#search_zone {
+			text-align: center;
+		}
+		
+		#arriba {
+			position: fixed;
+			padding: 3px;
+			font-size: 180%;
+			text-align: center;
+			background-color: rgb(220, 220, 220);
+			bottom: 2px;
+			right: 2px;
+			width: 50px;
+			height: 50px;
+			z-index: 10;
+			text-decoration: none;
+		}
+		
+		.contenedor {
+			padding: 1%;
+			overflow: hidden;
+		}
+		
+		.titulo {
+			width: 100%;
+			background-color: rgb(225, 225, 225);
+			background: -webkit-linear-gradient(top, white, rgb(225, 225, 225));
+			background: -o-linear-gradient(top, white, rgb(225, 225, 225));
+			background: -moz-linear-gradient(top, white, rgb(225, 225, 225));
+			background: linear-gradient(top, white, rgb(225, 225, 225));
+			padding: 1%;
+			text-align: center;
+		}
+		
+		#title {
+			font-weight: lighter;
+			font-size: 150%;
+			color: grey;
+			margin: 0;
+			padding-bottom: 0.5%;
+			text-align: center;
+		}
+		
+		#title small {
+			color: rgb(150, 150, 150);
+			font-size: 70%;
+			margin-left: 1%;
+		}
+		
+		.field, .field2 {
+			margin-bottom: 1%;
+			margin-left: .5%;
+			width: 95%;
+		}
+		.field2{
+			clear: left;
+			float: left;
+		}
+		#id {
+			width: 40%;
+		}
+		
+		@media print {
+			button,
+			.seccion1,
+			input,
+			p,
+			select {
+				display: none;
+			}
+		}
+		/* Formato de la base de datos*/
+		/* Lista móviles */
+		
+		#num {
+			color: blue;
+			font-size: 16pt;
+			margin: 3px;
+		}
+		
+		
+		column {
+			float: left;
+			width: 100%;
+			
+			color: rgb(100, 100, 100);
+		}
+				
+		
+		column[name="cat"] {
+			display: none;
+		}
+		
+		
+		column[name="id"] {
+			color: red;
+			font-size: 16pt;
+		}
+			
+		column[name="title"] {
+			font-size: 20pt;
+		}
+		
+		img {
+			width: 45%;
+			float: left;
+			padding: 3px;
+			border: 1px solid grey;
+			margin: 2px;
+		}
+		#imgprin {
+			float: none;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+			margin-bottom: 2%;
+			width: 80%;
+			
+		}
+		#bid {
+			width: 50px;
+		}
+		
+		#esp{
+			display: block;
+			margin-top: 10px;
+			margin-bottom: 15px;
+			margin-left: auto;
+			margin-right: auto;
+			width: 95%;
+			overflow: hidden;
+			position: relative;
+		}
+		
+		tabla {
+			background-color: rgb(240, 240, 240);
+			box-shadow: 2px 2px 7px grey;
+			display: inline-block;
+			padding: 5px 0px 20px 3px;
+			width: 99%;
+		}
+		
+		#add_zone,
+		#mod_zone,
+		#mult_search,
+		#weight_ml2,
+		#year_ml2,
+		#create_table,
+		#stadis {
+			display: none;
+			width: 100%;
+		}
+		
+		#tablas,
+		#grafs {
+			width: 100%;
+		}
+		
+		#tablas {
+			display: none;
+		}
+		
+		#mod_item,
+		#add_item,
+		#add_table,
+		#button_ml {
+			padding: 3%;
+			margin-bottom: 3%;
+		}
+		
+		table,
+		td {
+			border: 1px solid black;
+		}
+		
+		table {
+			width: 95%;
+		}
+		
+		canvas[id^="graf"] {
+			width: 100%;
+		}
+		@media screen and (min-width: 520px) {
+			#filexp{
+				width: 35%;
+			}
+			#btn_pr{
+				display: none;
+			}
+			[id*="btn_s"]{
+				display: inline-block;
+			}
+			#esp {
+				width: 45%;
+				float: left;
+				margin-left: 3%;
+				height: 1200px;
+			}
+			#column_type,
+			#search_type,
+			#search_text,
+			#order,
+			#asc_desc,
+			#submit {
+				width: 16%;
+				margin-bottom: 0;
+				padding: 0;
+			}
+			#btn_secc_m_search {
+				font-size: 8pt;
+				float: right;
+				margin-right: 2%;
+				margin-top: 0.4%;
+			}
+			#btn_secc_add,
+			#btn_secc_modif,
+			#btn_secc_home,
+			#btn_save,
+			#btn_secc_crtable,
+			#selecc_table,
+			#btn_secc_estad {
+				width: 15%;
+				margin-bottom: 0;
+				padding: 0.5%;
+			}
+			.field,
+			#order_ml,
+			#asc_desc_ml,
+			.field2 {
+				width: 25%;
+			}
+			#order_ml,
+			#asc_desc_ml
+			 {
+				margin-left: .5%;
+			}
+
+			#id {
+				width: 10%;
+			}
+			#id_search {
+				margin-bottom: .5%;
+			}
+			#mod_item,
+			#add_item,
+			#add_table,
+			#button_ml {
+				margin-left: .5%;
+				margin-top: .5%;
+				padding: 1%;
+			}
+			#grafs {
+				float: left;
+				position: relative;
+			}
+			canvas[id^="graf"] {
+				width: 30%;
+				float: left;
+				position: relative;
+				margin: 0.5%;
+			}
+			#marcas,
+			#funciona,
+			#years {
+				width: 25%;
+				float: left;
+			}
+		}
+		@media screen and (min-width: 920px){
+			#esp {
+				width: 29%;
+				float: left;
+				margin-left: 3%;
+				height: 1000px;
+			}
+		}
+	</style>
+</head>
+
+<body id="up">
+	<div class="titulo">
+		<button id="btn_pr">&#8801;</button>
+		<h1 id="title">Registros<small>beta 17.08</small></h1>
+		<button id="btn_secc_crtable">Crear tabla</button>
+		<button id="btn_secc_home">Buscar registro</button>
+		<button id="btn_secc_add">Añadir registro</button>
+		<button id="btn_secc_modif">Modificar registro</button>
+		<button id="btn_save">GUARDAR CAMBIOS</button>
+	</div>
+	
+	<a href="#up" id="arriba">&uarr;</a>
+	<input type="file" id="filexp" /><input type="text" id="selecc_table" placeholder="Nombre de la tabla"/>
+	<div class="contenedor">
+		<div id="search_zone">
+			<select id="column_type">
+				<option>-CATEGORÍA-</option>
+			</select>
+			<select id="search_type">
+				<option>CONTIENE</option>
+				<option>IGUAL</option>
+				<option>MAYOR O IGUAL</option>
+				<option>MENOR O IGUAL</option>
+			</select>
+			<input type="text" id="search_text" />
+			<select id="order">
+				<option>-ORDENAR POR-</option>
+			</select>
+			<select id="asc_desc">
+				<option>ASCENDIENTE</option>
+				<option>DESCENDIENTE</option>
+			</select>
+			<button type="submit" id="submit">BUSCAR</button>
+			<button id="btn_secc_m_search">Búsqueda múltiple</button>
+		</div>
+		<p id="num"></p>
+		<div id="basedatos">
+		</div>
+		<div id="create_table">
+
+			<label for="cat1">Categoría 1</label><input type="text" class="field cr_field" id="cat1" placeholder="nombre de la categoría">
+			<label for="cat1_type">Tipo de valores (categ. 1)</label><input type="text" class="field crt_field" id="cat1_type" placeholder="enteros, decimales, texto corto, texto largo"><br/>
+			<label for="cat2">Categoría 2</label><input type="text" class="field cr_field" id="cat2" placeholder="nombre de la categoría">
+			<label for="cat2_type">Tipo de valores (categ. 2)</label><input type="text" class="field crt_field" id="cat2_type" placeholder="enteros, decimales, texto corto, texto largo"><br/>
+			<label for="cat3">Categoría 3</label><input type="text" class="field cr_field" id="cat3" placeholder="nombre de la categoría">
+			<label for="cat3_type">Tipo de valores (categ. 3)</label><input type="text" class="field crt_field" id="cat3_type" placeholder="enteros, decimales, texto corto, texto largo"><br/>
+			<label for="cat4">Categoría 4</label><input type="text" class="field cr_field" id="cat4" placeholder="nombre de la categoría">
+			<label for="cat4_type">Tipo de valores (categ. 4)</label><input type="text" class="field crt_field" id="cat4_type" placeholder="enteros, decimales, texto corto, texto largo"><br/>
+			<label for="cat5">Categoría 5</label><input type="text" class="field cr_field" id="cat5" placeholder="nombre de la categoría">
+			<label for="cat5_type">Tipo de valores (categ. 5)</label><input type="text" class="field crt_field" id="cat5_type" placeholder="enteros, decimales, texto corto, texto largo"><br/>
+			<label for="cat6">Categoría 6</label><input type="text" class="field cr_field" id="cat6" placeholder="nombre de la categoría">
+			<label for="cat6_type">Tipo de valores (categ. 6)</label><input type="text" class="field crt_field" id="cat6_type" placeholder="enteros, decimales, texto corto, texto largo"><br/>
+			<label for="cat7">Categoría 7</label><input type="text" class="field cr_field" id="cat7" placeholder="nombre de la categoría">
+			<label for="cat7_type">Tipo de valores (categ. 7)</label><input type="text" class="field crt_field" id="cat7_type" placeholder="enteros, decimales, texto corto, texto largo"><br/>
+			<label for="cat8">Categoría 8</label><input type="text" class="field cr_field" id="cat8" placeholder="nombre de la categoría">
+			<label for="cat8_type">Tipo de valores (categ. 8)</label><input type="text" class="field crt_field" id="cat8_type" placeholder="enteros, decimales, texto corto, texto largo"><br/>
+			<label for="cat9">Categoría 9</label><input type="text" class="field cr_field" id="cat9" placeholder="nombre de la categoría">
+			<label for="cat9_type">Tipo de valores (categ. 9)</label><input type="text" class="field crt_field" id="cat9_type" placeholder="enteros, decimales, texto corto, texto largo"><br/>
+			<button id="btn_create_table">CREAR TABLA</button>
+
+		</div>
+		<div id="add_zone">
+			<div id="add_fields"></div>
+			<button id="add_item">AÑADIR</button>
+		</div>
+		<div id="mod_zone">
+			<input type="text" class="field" id="id" placeholder="ID"/>
+			<button id="id_search">BUSCAR</button><br/>
+			<div id="mod_fields"></div>
+			<button id="mod_item">MODIFICAR</button>
+		</div>
+		<div id="mult_search">
+			<div id="search_fields"></div>
+			
+			<select id="order_ml" class="field2">
+				<option>-ORDENAR POR-</option>
+			</select>
+			<select id="asc_desc_ml" class="field2">
+				<option>ASCENDIENTE</option>
+				<option>DESCENDIENTE</option>
+			</select><br/><br/>
+			<button id="button_ml">BUSCAR</button>
+		</div>
+		<div id="stadis">
+		</div>
+	</div>
+	<script src="sql.js"></script>
+	<script>
+		document.getElementById("btn_pr").addEventListener("click", function () {
+			menu_resp();
+		});
+		document.getElementById("btn_secc_crtable").addEventListener("click", function () {
+			crear_tabla();
+		});
+		document.getElementById("btn_secc_add").addEventListener("click", function () {
+			anadir_registros();
+		});
+		document.getElementById("btn_secc_modif").addEventListener("click", function () {
+			modif_registros();
+		});
+		document.getElementById("btn_secc_home").addEventListener("click", function () {
+			home();
+		});
+		document.getElementById("btn_secc_m_search").addEventListener("click", function () {
+			bus_mult();
+		});
+
+		function menu_resp(){
+			if(document.getElementById("btn_secc_add").style.display == "block"){
+				document.getElementById("btn_secc_add").style.display = "none";
+				document.getElementById("btn_secc_modif").style.display = "none";
+				document.getElementById("btn_secc_home").style.display = "none";
+				document.getElementById("btn_save").style.display = "none";
+				document.getElementById("btn_secc_crtable").style.display = "none";
+			}else{
+				document.getElementById("btn_secc_add").style.display = "block";
+				document.getElementById("btn_secc_modif").style.display = "block";
+				document.getElementById("btn_secc_home").style.display = "block";
+				document.getElementById("btn_save").style.display = "none";
+				document.getElementById("btn_secc_crtable").style.display = "block";
+			}
+			
+		}
+		function crear_tabla(){
+			document.getElementById("create_table").style.display = "block";
+			document.getElementById("selecc_table").setAttribute('disabled', '');
+			document.getElementById("mult_search").style.display = "none";
+			document.getElementById("stadis").style.display = "none";
+			document.getElementById("search_zone").style.display = "none";
+			document.getElementById("basedatos").style.display = "none";
+			document.getElementById("add_zone").style.display = "none";
+			document.getElementById("mod_zone").style.display = "none";
+			document.getElementById("num").style.display = "none";
+			document.getElementById("btn_secc_add").style.backgroundColor = "white";
+			document.getElementById("btn_secc_modif").style.backgroundColor = "white";
+			document.getElementById("btn_secc_home").style.backgroundColor = "white";
+			document.getElementById("btn_secc_crtable").style.backgroundColor = "rgb(100,150,255)";
+		}
+		function anadir_registros() {
+			document.getElementById("selecc_table").removeAttribute('disabled');
+			document.getElementById("create_table").style.display = "none";
+			document.getElementById("mult_search").style.display = "none";
+			document.getElementById("stadis").style.display = "none";
+			document.getElementById("search_zone").style.display = "none";
+			document.getElementById("basedatos").style.display = "none";
+			document.getElementById("add_zone").style.display = "block";
+			document.getElementById("mod_zone").style.display = "none";
+			document.getElementById("num").style.display = "none";
+			document.getElementById("btn_secc_add").style.backgroundColor = "rgb(100,150,255)";
+			document.getElementById("btn_secc_modif").style.backgroundColor = "white";
+			document.getElementById("btn_secc_home").style.backgroundColor = "white";
+			document.getElementById("btn_secc_crtable").style.backgroundColor = "white";
+		}
+		function modif_registros() {
+			document.getElementById("selecc_table").removeAttribute('disabled');
+			document.getElementById("create_table").style.display = "none";
+			document.getElementById("mult_search").style.display = "none";
+			document.getElementById("stadis").style.display = "none";
+			document.getElementById("search_zone").style.display = "none";
+			document.getElementById("basedatos").style.display = "none";
+			document.getElementById("add_zone").style.display = "none";
+			document.getElementById("mod_zone").style.display = "block";
+			document.getElementById("num").style.display = "none";
+			document.getElementById("btn_secc_add").style.backgroundColor = "white";
+			document.getElementById("btn_secc_modif").style.backgroundColor = "rgb(100,150,255)";
+			document.getElementById("btn_secc_home").style.backgroundColor = "white";
+			document.getElementById("btn_secc_crtable").style.backgroundColor = "white";
+		}
+		function home() {
+			document.getElementById("selecc_table").removeAttribute('disabled');
+			document.getElementById("create_table").style.display = "none";
+			document.getElementById("mult_search").style.display = "none";
+			document.getElementById("stadis").style.display = "none";
+			document.getElementById("search_zone").style.display = "block";
+			document.getElementById("basedatos").style.display = "block";
+			document.getElementById("add_zone").style.display = "none";
+			document.getElementById("mod_zone").style.display = "none";
+			document.getElementById("num").style.display = "block";
+			document.getElementById("btn_secc_add").style.backgroundColor = "white";
+			document.getElementById("btn_secc_modif").style.backgroundColor = "white";
+			document.getElementById("btn_secc_crtable").style.backgroundColor = "white";
+			document.getElementById("btn_secc_home").style.backgroundColor = "rgb(100,150,255)";
+		}
+		function bus_mult() {
+			document.getElementById("selecc_table").removeAttribute('disabled');
+			document.getElementById("create_table").style.display = "none";
+			document.getElementById("mult_search").style.display = "block";
+			document.getElementById("stadis").style.display = "none";
+			document.getElementById("search_zone").style.display = "none";
+			document.getElementById("basedatos").style.display = "none";
+			document.getElementById("add_zone").style.display = "none";
+			document.getElementById("mod_zone").style.display = "none";
+			document.getElementById("num").style.display = "none";
+			document.getElementById("btn_secc_add").style.backgroundColor = "white";
+			document.getElementById("btn_secc_modif").style.backgroundColor = "white";
+			document.getElementById("btn_secc_crtable").style.backgroundColor = "white";
+			document.getElementById("btn_secc_home").style.backgroundColor = "rgb(100,150,255)";
+			categories("order_ml");
+		}
+		function estadisticas() {
+			
+		}
+		function categories(place){
+			var cons_cat_sql = "SELECT * FROM categorias";
+			var stmt = db.prepare(cons_cat_sql);
+			while (stmt.step()) {
+				var row = stmt.getAsObject();
+				var selecc = document.createElement("option");
+				selecc.setAttribute("class", "selecc");
+				selecc.innerHTML = row['full_name'];
+				document.getElementById(place).appendChild(selecc);
+			}
+			
+		}
+
+		function mostrar(sql) {
+			var stmt = db.prepare(sql);
+			while (stmt.step()) {
+				var row = stmt.getAsObject();
+				var espacio = document.createElement("div");
+				espacio.setAttribute("id", "esp");
+				var tabla = document.createElement("tabla");
+				
+				var sql_new_3 = "SELECT * FROM categorias WHERE db_name != 'images' AND db_name != 'image1' AND db_name != 'image2'";
+				var stmt_new_3 = db.prepare(sql_new_3);
+				var n = 0;
+				while(stmt_new_3.step()){
+					var row_new_3 = stmt_new_3.getAsObject();
+					if(n == 2) {
+						if(row['images'] != ""){
+						var a = document.createElement("a");
+						a.setAttribute("href", row["images"]);
+						a.setAttribute("target", "_blank");
+						var img = document.createElement("img");
+						img.setAttribute("src", row["images"]);
+						img.setAttribute("id", "imgprin");
+						a.appendChild(img);
+						tabla.appendChild(a);
+						}
+					}
+					var layer = document.createElement("column");
+					layer.setAttribute("name", row_new_3["db_name"]);
+					layer.innerHTML = "<span style='color: rgb(150,150,150); font-style: italic'>" + row_new_3['full_name'] + ": </span><b>" + row[row_new_3['db_name']] + "</b>";
+					tabla.appendChild(layer);
+					n++;
+				}	
+				var a2 = document.createElement("a");
+				a2.setAttribute("href", row["image1"]);
+				a2.setAttribute("target", "_blank");
+				var img_2 = document.createElement("img");
+				img_2.setAttribute("src", row["image1"]);
+				if (img_2.getAttribute("src") == "") {
+					img_2.style.display = "none";
+				}
+				a2.appendChild(img_2);
+				var a3 = document.createElement("a");
+				a3.setAttribute("href", row["image2"]);
+				a3.setAttribute("target", "_blank");
+				var img_3 = document.createElement("img");
+				img_3.setAttribute("src", row["image2"]);
+				if (img_3.getAttribute("src") == "") {
+					img_3.style.display = "none";
+				}
+				a3.appendChild(img_3);	
+				tabla.appendChild(a2);
+				tabla.appendChild(a3);
+				espacio.appendChild(tabla);
+				document.getElementById("basedatos").appendChild(espacio);
+			}
+		}
+		// Número móviles
+		function numero() {
+			var sql_t = "SELECT count(*) AS num FROM " + table_select;
+			var stmt_t = db.prepare(sql_t);
+			while (stmt_t.step()) {
+				var row_t = stmt_t.getAsObject();
+			}
+			var n2 = 0;
+			var n = document.getElementsByTagName("tabla").length;
+			for (var i = 0; i < n; i++) {
+				if (document.getElementsByTagName("tabla")[i]) {
+					n2 += 1;
+				}
+			}
+			document.getElementById("num").innerHTML = "Número de registros seleccionados: " + n2 + " (" + ((n2 / row_t["num"]) * 100).toFixed(2) + "%)";
+			stmt_t.free();
+		}
+		//FORMATO CATEGORIAS
+		function converter(str){
+			var arr = str.split("");
+			for (var i = 0; i < arr.length; i++){
+				if(arr[i] == "á"){
+					arr[i] = "a";
+				} else if (arr[i] == "é"){
+					arr[i] = "e";
+				} else if (arr[i] == "í"){
+					arr[i] = "i";
+				} else if (arr[i] == "ó"){
+					arr[i] = "o";
+				} else if (arr[i] == "ú"){
+					arr[i] = "u";
+				} else if (arr[i] == "ñ"){
+					arr[i] = "n";
+				} else if (arr[i] == " "){
+					arr[i] = "_";
+				}
+			}
+			var str2 = arr.join("").toLowerCase();
+			return str2;
+			
+		}
+		//FORMATO FECHAS
+		function fecha(x){
+			var arr = x.split("/");
+			arr = arr.reverse();
+			arr = arr.join("-");
+			return arr;
+		}
+		// CONEXIÓN A LA BASE DE DATOS PARA CREAR TABLA
+		document.getElementById("btn_create_table").addEventListener("click", function(){
+		
+					var db = new SQL.Database();
+
+					var cr_field = document.getElementsByClassName("cr_field");
+					var crt_field = document.getElementsByClassName("crt_field");
+					var cat_conv;
+					var cat_type_conv;
+					if(cr_field[0] == ""){
+						alert("Introduzca al menos una categoría y la clase de valor que contendrá");
+					}else{
+						if(crt_field[0].value == "enteros"){
+							cat_type_conv = "integer";
+						}else if(crt_field[0].value == "decimales"){
+							cat_type_conv = "float";
+						}else if(crt_field[0].value == "texto corto"){
+							cat_type_conv = "varchar(100)";
+						}else if(crt_field[0].value == "texto largo"){
+							cat_type_conv = "varchar(255)";
+						}
+						 
+						cat_conv = converter(cr_field[0].value);
+						var sql_crt_cats = "CREATE TABLE IF NOT EXISTS 'categorias' ('full_name' varchar(100), 'db_name' varchar(100))";
+						db.run(sql_crt_cats);
+						var sql_crt_cats_ins = "INSERT INTO categorias ('full_name', 'db_name') VALUES ('ID', 'id')";
+						db.run(sql_crt_cats_ins);
+						var sql_crt = "CREATE TABLE IF NOT EXISTS 'tabla'";
+						sql_crt += " ('id' integer PRIMARY KEY, '" + cat_conv + "' " + cat_type_conv;
+						sql_crt_cats_ins = "INSERT INTO categorias ('full_name', 'db_name') VALUES ('" + cr_field[0].value + "', '" + cat_conv + "')";
+						db.run(sql_crt_cats_ins);
+						for (var i = 1; i < cr_field.length; i++){
+							if (cr_field[i].value != ""){
+								cat_conv = converter(cr_field[i].value);
+								if(crt_field[i].value == "enteros"){
+									cat_type_conv = "integer";
+								}else if(crt_field[i].value == "decimales"){
+									cat_type_conv = "float";
+								}else if(crt_field[i].value == "texto corto"){
+									cat_type_conv = "varchar(100)";
+								}else if(crt_field[i].value == "texto largo"){
+									cat_type_conv = "varchar(255)";
+								}
+								sql_crt += ", '" + cat_conv + "' " + cat_type_conv;
+								sql_crt_cats_ins = "INSERT INTO categorias ('full_name', 'db_name') VALUES ('" + cr_field[i].value + "', '" + cat_conv + "')";
+								db.run(sql_crt_cats_ins);
+							}
+						}
+						sql_crt_cats_ins = "INSERT INTO categorias ('full_name', 'db_name') VALUES ('Imagen principal', 'images')";
+						db.run(sql_crt_cats_ins);
+						sql_crt_cats_ins = "INSERT INTO categorias ('full_name', 'db_name') VALUES ('Imagen 2', 'image1')";
+						db.run(sql_crt_cats_ins);
+						sql_crt_cats_ins = "INSERT INTO categorias ('full_name', 'db_name') VALUES ('Imagen 3', 'image2')";
+						db.run(sql_crt_cats_ins);
+						sql_crt += ", 'images' varchar(100), 'image1' varchar(100), 'image2' varchar(100))";
+						db.run(sql_crt);
+						alert("Tabla creada");
+						var binaryArray = db.export();
+						var blob = new Blob([binaryArray], { type: "application/octet-stream" });
+						var url = window.URL.createObjectURL(blob);
+						var link = document.createElement('a');
+						link.href = url;
+						link.style.display = "none";
+						link.setAttribute("id", "dld");
+						link.setAttribute('download', "registros.db");
+						document.getElementById("search_zone").after(link);
+						link.click();
+						window.URL.revokeObjectURL(url);
+					}
+					
+			});
+		
+	// CONEXIÓN A LA BASE DE DATOS PARA BUSCAR/AÑADIR/MODIFICAR
+	var dbFileElm = document.getElementById("filexp");
+	
+	var table_select;
+	dbFileElm.addEventListener("change", function () {
+		var selecc_table = document.getElementById("selecc_table").value;
+		if(selecc_table.toLowerCase() != ""){
+			table_select = selecc_table.toLowerCase();
+		}else{
+			table_select = "tabla";
+		}
+			var input = document.getElementById("search_text");
+			var f = dbFileElm.files[0];
+			var r = new FileReader();
+			r.onload = function () {
+				var Uints = new Uint8Array(r.result);
+				db = new SQL.Database(Uints);
+
+				// TODOS LOS REGISTROS
+				
+				var base_sql = "SELECT * FROM " + table_select;
+				var sql = base_sql;
+				mostrar(sql);
+				categories("column_type");
+				categories("order");
+				numero();
+				var boton = document.getElementById("submit");
+				var boton_ml = document.getElementById("button_ml");
+
+				// BUSCAR REGISTRO
+				boton.addEventListener("click", function () {
+					nucleo();
+					numero();
+				});
+				input.addEventListener("change", function () {
+					nucleo();
+					numero();
+				});
+				boton_ml.addEventListener("click", function () {
+					nucleo_ml();
+					numero();
+				});
+
+				//BÚSQUEDA
+				
+				var regex = new RegExp("[^A-Za-z0-9\\sáéíóúñ.]");
+				function nucleo() {
+					if (regex.test(input.value)) {
+						alert("Carácter incorrecto");
+					} else {
+						document.getElementById("basedatos").innerHTML = "";
+						var category_field = document.getElementById("column_type").value;
+						var category;
+						var added = "";
+						var equiv;
+						var ord;
+						var a_d;
+						var base_sql = "SELECT * FROM "+ table_select;
+						var search_type = document.getElementById("search_type").value;
+						var order = document.getElementById("order").value;
+						var asc_desc = document.getElementById("asc_desc").value;
+						if (search_type == "CONTIENE") {
+							equiv = " LIKE '%" + input.value + "%'";
+						}
+						else if (search_type == "IGUAL") {
+							equiv = " = '" + input.value + "'";
+						}
+						else if (search_type == "MAYOR O IGUAL") {
+							equiv = " >= '" + input.value + "'";
+						}
+						else if (search_type == "MENOR O IGUAL") {
+							equiv = " <= '" + input.value + "'";
+						}
+						var sql_new_1 = "SELECT * FROM categorias WHERE full_name='" + category_field + "'";
+						var stmt_h = db.prepare(sql_new_1);
+						while (stmt_h.step()) {
+							var row_h = stmt_h.getAsObject();  
+							category = row_h["db_name"];
+						}
+						var sql_new_2 = "SELECT * FROM categorias WHERE full_name='" + order + "'";
+						var stmt_i = db.prepare(sql_new_2);
+						while (stmt_i.step()) {
+							var row_i = stmt_i.getAsObject();  
+							ord = row_i["db_name"];
+						}
+						
+						if (asc_desc == "ASCENDIENTE") {
+							a_d = "";
+						} else {
+							a_d = "desc";
+						}
+						var sql = base_sql + " where " + category + equiv + added + "order by " + ord + " " + a_d;
+						
+						if (order == "-ORDENAR POR-") {
+							sql = base_sql + " where " + category + equiv + added;
+						}
+						if (category_field == "-CATEGORÍA-" && input.value == "" && order == "-ORDENAR POR-") {
+							sql = base_sql;
+						} else if (category_field == "-CATEGORÍA-" && input.value == "" && order != "-ORDENAR POR-") {
+							sql = base_sql + " ORDER BY " + ord + " " + a_d;
+						}
+						if (category_field == "-CATEGORÍA-" && input.value != "") {
+							sql = base_sql + " where ";
+							var cons_cat_sql2 = "SELECT * FROM categorias WHERE db_name = 'id'";
+							var stmt = db.prepare(cons_cat_sql2);
+							while (stmt.step()) {
+								var row = stmt.getAsObject();
+								sql += row['db_name'] + equiv;
+							}
+							var cons_cat_sql3 = "SELECT * FROM categorias WHERE db_name != 'id'";
+							var stmt = db.prepare(cons_cat_sql3);
+							while (stmt.step()) {
+								var row = stmt.getAsObject();
+								sql += " OR " + row['db_name'] + equiv;
+							}
+						}
+
+
+					}
+						mostrar(sql);
+						
+				}
+				
+				var nerror = 0;
+				//BUSQUEDA MULTIPLE
+
+				var sql_new_4 = "SELECT * FROM categorias WHERE db_name!='id'";
+				var stmt = db.prepare(sql_new_4);
+				
+				while (stmt.step()) {
+					var row = stmt.getAsObject();
+					var labelml = document.createElement("input");
+					labelml.setAttribute("type", "text");
+					labelml.setAttribute("class", "field2 ml_field");
+					labelml.setAttribute("placeholder", row['full_name']);
+					document.getElementById("search_fields").appendChild(labelml);
+				}
+				
+			
+				function nucleo_ml() {
+					var i = 0;
+					var e = 0;
+					var sql_ml = "SELECT * FROM " + table_select + " WHERE ";
+					var ml_field = document.getElementsByClassName("ml_field");
+					var cat_arr = [];
+					while (stmt.step()) {
+						var row = stmt.getAsObject();
+						cat_arr.push(row['db_name']);
+					}
+						for (var i = 0; i < ml_field.length; i++){
+							if(ml_field[i].value != ""){
+								if(i == 0){
+									sql_ml += cat_arr[i] + " LIKE '%" + ml_field[i].value + "%'"; 
+								}else{
+									for(var j = 1; j <= i; j++){
+										if(ml_field[i-j].value != ""){
+											e++;
+										}
+									}
+									if(e == 0){
+										sql_ml += cat_arr[i] + " LIKE '%" + ml_field[i].value + "%'"; 
+									}else{
+										sql_ml += " AND " + cat_arr[i] + " LIKE '%" + ml_field[i].value + "%'";
+									}
+								
+								}
+							}
+						}
+					if (document.getElementById("order_ml").value != "-ORDENAR POR-") {
+						var ord_ml;
+						var sql_new_5 = "SELECT * FROM categorias WHERE full_name='" + document.getElementById("order_ml").value + "'";
+						var stmt_i = db.prepare(sql_new_5);
+						while (stmt_i.step()) {
+							var row_i = stmt_i.getAsObject();  
+							ord_ml = row_i["db_name"];
+						}
+						sql_ml += " ORDER BY " + ord_ml;
+						if (document.getElementById("asc_desc_ml").value != "ASCENDIENTE") {
+							sql_ml += " DESC";
+						}
+					}
+					if (nerror == 0) {
+						home();
+						document.getElementById("basedatos").innerHTML = "";
+						mostrar(sql_ml);
+					} else {
+						nerror = 0;
+					}
+				}
+				//AÑADIR REGISTRO
+				var sql_new_6 = "SELECT * FROM categorias WHERE db_name != 'id'";
+				var stmt = db.prepare(sql_new_6);
+				var i = 0;
+				var cat_list = [];
+				var add_values = [];
+				while (stmt.step()) {
+					var row = stmt.getAsObject();
+					var labelml = document.createElement("input");
+					labelml.setAttribute("type", "text");
+					labelml.setAttribute("class", "field2 add_field");
+					labelml.setAttribute("placeholder", row['full_name']);
+					document.getElementById("add_fields").appendChild(labelml);
+					cat_list[i] = row['db_name'];
+					i++;
+				}
+				var add_boton = document.getElementById("add_item");
+				add_boton.addEventListener("click", function () {
+					var labelml_comp = document.getElementsByClassName("add_field");
+					var confirm_add = confirm("¿Quiere añadir el registro?");
+					if (confirm_add == true) {
+						var sql_a = "INSERT INTO " + table_select + " (";
+						for ( x = 0; x < cat_list.length; x++){
+							if( x == cat_list.length - 1){
+								sql_a += "'" + cat_list[x] + "'";
+							}else{
+							sql_a += "'" + cat_list[x] + "', ";
+							}
+						}
+						sql_a += ") VALUES (";
+						var regex2 = new RegExp("[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}");
+						for ( i = 0; i < labelml_comp.length; i++){
+							if(regex.test(labelml_comp[i].value)){
+									labelml_comp[i].value = fecha(labelml_comp[i].value);
+							}
+							if( i == labelml_comp.length - 1){
+								sql_a += "'" + labelml_comp[i].value + "')";
+							}else{
+							sql_a += "'" + labelml_comp[i].value + "', ";
+							}
+						}
+						var stmt_a = db.run(sql_a);
+						alert("Se ha añadido el registro.");
+						var binaryArray = db.export();
+						var blob = new Blob([binaryArray], { type: "application/octet-stream" });
+						var url = window.URL.createObjectURL(blob);
+						
+						var link = document.createElement('a');
+						link.href = url;
+						link.style.display = "none";
+						link.setAttribute("id", "dld");
+						link.setAttribute('download', "registros.db");
+						document.getElementById("search_zone").after(link);
+						link.click();
+						window.URL.revokeObjectURL(url);
+					} else {
+						alert("No se ha añadido el registro");
+					}
+				});
+				//MODIFICAR REGISTRO
+				var sql_new_7 = "SELECT * FROM categorias where db_name != 'id'";
+				var stmt = db.prepare(sql_new_7);
+				while (stmt.step()) {
+					var row = stmt.getAsObject();
+					var labelml = document.createElement("input");
+					labelml.setAttribute("type", "text");
+					labelml.setAttribute("class", "field2 mod_field");
+					labelml.setAttribute("placeholder", row['full_name']);
+					document.getElementById("mod_fields").appendChild(labelml);
+				}
+				document.getElementById("id_search").addEventListener("click", function () {
+					var id_search = document.getElementById("id").value;
+					var sql_b = "SELECT * FROM " + table_select + " WHERE id = " + id_search;
+					var stmt_b = db.prepare(sql_b);
+					var i = 0;
+					var sql_new_7 = "SELECT * FROM categorias where db_name != 'id'";
+					var stmt = db.prepare(sql_new_7);
+					while (stmt_b.step()) {
+						var row_b = stmt_b.getAsObject();
+						while(stmt.step()){
+							var row = stmt.getAsObject();
+							document.getElementsByClassName("mod_field")[i].value = row_b[row['db_name']];
+							i++;
+						}
+						
+					}
+				});
+					var mod_boton = document.getElementById("mod_item");
+					mod_boton.addEventListener("click", function () {
+						var label_mod = document.getElementsByClassName("mod_field");
+						var confirm_mod = confirm("¿Quiere modificar el registro?");
+						if (confirm_mod == true) {
+							id_search = document.getElementById("id").value;
+							var sql_c = "UPDATE " + table_select + " SET ";
+							var i = 0;
+							var sql_new_7 = "SELECT * FROM categorias where db_name != 'id'";
+							var stmt = db.prepare(sql_new_7);
+							while(stmt.step()){
+								var row = stmt.getAsObject();
+								if(i == label_mod.length -1){
+									sql_c += "'" + row['db_name'] + "'='" + label_mod[i].value + "' ";
+								}else{
+								sql_c += "'" + row['db_name'] + "'='" + label_mod[i].value + "', ";
+								i++;
+							}
+							}
+							var sql_c = sql_c + "WHERE id=" + id_search;
+							var stmt_c = db.run(sql_c);
+							alert("Se ha actualizado el registro nº " + id_search + ".");
+							var binaryArray = db.export();
+							var blob = new Blob([binaryArray], { type: "application/octet-stream" });
+							var url = window.URL.createObjectURL(blob);
+							var link = document.createElement('a');
+							link.href = url;
+							link.style.display = "none";
+							link.setAttribute("id", "dld");
+							link.setAttribute('download', "registros.db");
+							document.getElementById("search_zone").after(link);
+							link.click();
+							window.URL.revokeObjectURL(url);
+						} else {
+							alert("No se ha actualizado el registro");
+						}
+					});
+				
+				//GUARDAR CAMBIOS
+				document.getElementById("btn_save").addEventListener("click", function () {
+					var binaryArray = db.export();
+					var blob = new Blob([binaryArray], { type: "application/octet-stream" });
+					var url = window.URL.createObjectURL(blob);
+					
+					var link = document.createElement('a');
+					link.href = url;
+					link.style.display = "none";
+					link.setAttribute("id", "dld");
+					link.setAttribute('download', "registros.db");
+					document.getElementById("search_zone").after(link);
+					link.click();
+					window.URL.revokeObjectURL(url);
+					/*window.requestAnimationFrame(function () {
+						var event = new MouseEvent('click');
+						link.dispatchEvent(event);
+					});*/
+				});
+			}
+			r.readAsArrayBuffer(f);
+		});
+	</script>
+</body>
+
+</html>
