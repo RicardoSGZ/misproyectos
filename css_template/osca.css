@@ -1,0 +1,565 @@
+* {
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+.amarillo {
+	color: yellow;
+}
+.articulos>div {
+	width: 75%;
+}
+
+.articulo-principal, .articulos {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.azul {
+	color: blue;
+}
+.blanco {
+	color: white;
+}
+body {
+	font-family: sans-serif;
+}
+.borde {
+	border-style: solid;
+}
+
+.borde-s {
+	border-width: 1px;
+}
+
+.borde-m {
+	border-width: 3px;
+}
+
+.borde-l {
+	border-width: 5px;
+}
+
+.borde-blanco {
+	border-color: white;
+}
+
+.borde-gris {
+	border-color: grey;
+}
+
+.borde-gris-claro {
+	border-color: rgb(225, 225, 225);
+}
+
+.borde-negro {
+	border-color: black;
+}
+
+.borde-amarillo {
+	border-color: yellow;
+}
+
+.borde-naranja {
+	border-color: orange;
+}
+
+.borde-rojo {
+	border-color: red;
+}
+
+.borde-rosa {
+	border-color: pink;
+}
+
+.borde-morado {
+	border-color: purple;
+}
+
+.borde-azul {
+	border-color: blue;
+}
+
+.borde-verde {
+	border-color: green;
+}
+
+.borde-marron {
+	border-color: brown;
+}
+.btn-menu {
+	font-size: 15pt;
+	padding: 10px;
+	margin: 2px;
+	float: right;
+	border-width: 1px;
+	border-style: solid;
+	outline: none;
+}
+
+.btn {
+	padding: 14px 16px;
+	display: block;
+	width: 100%;
+	outline: none;
+}
+.contenedor {
+	padding: 2%;
+	overflow: hidden;
+}
+.derecha {
+	display: block;
+	margin: right;
+}
+.degradado-v-blanco-gris {
+	background: #c0c0c0;
+	background: linear-gradient(white, rgb(235, 235, 235));
+	background: -webkit-linear-gradient(white, rgb(235, 235, 235));
+	background: -moz-linear-gradient(white, rgb(235, 235, 235));
+}
+.encabezado-pagina {
+	border-bottom: 1px solid rgb(200, 200, 200);
+	box-shadow: 0px 2px 4px rgb(200, 200, 200);
+	-webkit-box-shadow: 0px 2px 4px rgb(200, 200, 200);
+	-moz-box-shadow: 0px 2px 4px rgb(200, 200, 200);
+	overflow: hidden;
+}
+.encima-fondo-blanco:hover {
+	background-color: white;
+}
+
+.encima-fondo-gris:hover {
+	background-color: grey;
+}
+
+.encima-fondo-gris-claro:hover {
+	background-color: rgb(235, 235, 235);
+}
+
+.encima-fondo-negro:hover {
+	background-color: black;
+}
+
+.encima-fondo-amarillo:hover {
+	background-color: yellow;
+}
+
+.encima-fondo-naranja:hover {
+	background-color: orange;
+}
+
+.encima-fondo-rojo:hover {
+	background-color: red;
+}
+
+.encima-fondo-rosa:hover {
+	background-color: pink;
+}
+
+.encima-fondo-morado:hover {
+	background-color: purple;
+}
+
+.encima-fondo-azul:hover {
+	background-color: blue;
+}
+
+.encima-fondo-verde:hover {
+	background-color: green;
+}
+
+.encima-fondo-marron:hover {
+	background-color: brown;
+}
+
+.encima-blanco:hover {
+	color: white;
+}
+
+.encima-gris:hover {
+	color: grey;
+}
+
+.encima-gris-claro:hover {
+	color: rgb(235, 235, 235);
+}
+
+.encima-negro:hover {
+	color: black;
+}
+
+.encima-amarillo:hover {
+	color: yellow;
+}
+
+.encima-naranja:hover {
+	color: orange;
+}
+
+.encima-rojo:hover {
+	color: red;
+}
+
+.encima-rosa:hover {
+	color: pink;
+}
+
+.encima-morado:hover {
+	color: purple;
+}
+
+.encima-azul:hover {
+	color: blue;
+}
+
+.encima-verde:hover {
+	color: green;
+}
+
+.encima-marron:hover {
+	color: brown;
+}
+.espacio-0 {
+	padding: 0;
+}
+
+.espacio-s {
+	padding: 1px;
+}
+
+.espacio-m {
+	padding: 3px;
+}
+
+.espacio-l {
+	padding: 5px;
+}
+.fila {
+	padding: 0;
+	overflow: hidden;
+}
+.fondo-padre, .fondo-padre-movil {
+	background-color: inherit;
+}
+
+.fondo-blanco {
+	background-color: white;
+}
+
+.fondo-gris {
+	background-color: grey;
+}
+
+.fondo-gris-claro {
+	background-color: rgb(235, 235, 235);
+}
+
+.fondo-negro {
+	background-color: black;
+}
+
+.fondo-amarillo {
+	background-color: yellow;
+}
+
+.fondo-naranja {
+	background-color: orange;
+}
+
+.fondo-rojo {
+	background-color: red;
+}
+
+.fondo-rosa {
+	background-color: pink;
+}
+
+.fondo-morado {
+	background-color: purple;
+}
+
+.fondo-azul {
+	background-color: blue;
+}
+
+.fondo-verde {
+	background-color: green;
+}
+
+.fondo-marron {
+	background-color: brown;
+}
+.gris {
+	color: grey;
+}
+
+.gris-claro {
+	color: rgb(235, 235, 235);
+}
+h1 {
+	margin: 0;
+	font-weight: lighter;
+}
+.izquierda {
+	display: block;
+	margin: left;
+}
+.lista {
+	list-style: none;
+	padding: 0;
+	margin-top: 10px;
+}
+
+.lista li {
+	padding: 5px;
+}
+
+.lista-encabezado {
+	text-transform: uppercase;
+	text-align: center;
+	padding: 10px 0px 10px 0px !important;
+}
+
+.lista-con-bordes>li {
+	border-bottom: 1px solid rgba(200, 200, 200, 0.5);
+	padding: 6px 2px 6px 16px
+}
+.margen-0 {
+	margin: 0;
+}
+
+.margen-s {
+	margin: 1px;
+}
+
+.margen-m {
+	margin: 3px;
+}
+
+.margen-l {
+	margin: 5px;
+}
+.marron {
+	color: brown;
+}
+.menu-movil {
+	float: left;
+	width: 100%;
+	display: none;
+}
+
+.menu-vertical {
+	display: none;
+	position: relative;
+}
+
+.menu-vertical a {
+	display: block;
+	text-align: center;
+	padding: 12px 16px;
+}
+
+.menu-horizontal {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+.morado {
+	color: purple;
+}
+.negro {
+	color: black;
+}
+
+.naranja {
+	color: orange;
+}
+
+
+
+
+
+.texto-centrar {
+	text-align: center;
+}
+
+.texto-izquierda {
+	text-align: left;
+}
+
+.texto-derecha {
+	text-align: right;
+}
+
+.texto-justificar {
+	text-align: justify;
+}
+
+
+
+
+
+
+
+.rojo {
+	color: red;
+}
+
+.rosa {
+	color: pink;
+}
+
+.verde {
+	color: green;
+}
+
+.sin-borde {
+	border: none;
+}
+
+
+
+[class*="col-"] {
+	width: 100%;
+	float: left;
+}
+
+.postal {
+	margin: 10px;
+	box-shadow: 0px 5px 10px rgb(200, 200, 200);
+	-webkit-box-shadow: 0px 5px 10px rgb(200, 200, 200);
+	-moz-box-shadow: 0px 5px 10px rgb(200, 200, 200);
+}
+
+.postal img {
+	width: 100%;
+}
+
+.titulo-web {
+	color: rgb(150, 150, 150);
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 10px;
+	width: auto;
+	float: left;
+}
+
+
+.pie-de-pagina {
+	width: 100%;
+	bottom: 0;
+	position: absolute;
+	padding: 5px;
+	background-color: rgb(225, 225, 225);
+}
+
+p {
+	margin: 0;
+}
+
+
+table {
+	border-collapse: collapse;
+}
+
+td, th {
+	padding: 8px;
+}
+
+.tabla-normal th, .tabla-normal td {
+	border: 1px solid black;
+}
+
+.tabla-1 td, .tabla-1 th {
+	border-bottom: 1px solid rgb(225, 225, 225);
+}
+
+.tabla-1 tr:nth-child(even) {
+	background-color: rgb(225, 225, 225);
+}
+
+.tabla-1 th {
+	background-color: #0080ff;
+	color: white;
+}
+
+/*Responsive*/
+@media screen and (min-width: 720px) {
+	.fondo-padre-movil {
+		background-color: rgb(225, 225, 225);
+	}
+	.col-1 {
+		width: 8.33%;
+	}
+	.col-2 {
+		width: 16.66%;
+	}
+	.col-3 {
+		width: 25%;
+	}
+	.col-4 {
+		width: 33.33%;
+	}
+	.col-5 {
+		width: 41.66%;
+	}
+	.col-6 {
+		width: 50%;
+	}
+	.col-7 {
+		width: 58.33%;
+	}
+	.col-8 {
+		width: 66.66%;
+	}
+	.col-9 {
+		width: 75%;
+	}
+	.col-10 {
+		width: 83.33%;
+	}
+	.col-11 {
+		width: 91.66%;
+	}
+	.col-12 {
+		width: 100%;
+	}
+	.col-rest {
+		overflow: hidden;
+	}
+	.articulo-principal, .articulos {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+	}
+	.btn-menu {
+		display: none;
+	}
+	.menu-movil {
+		float: right;
+		width: auto;
+		display: flex;
+	}
+	.menu-vertical {
+		position: absolute;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		text-align: left;
+	}
+	.menu-vertical a {
+		display: block;
+		text-align: left;
+		padding: 12px 16px;
+	}
+	.menu-horizontal {
+		display: flex;
+		overflow: hidden;
+	}
+	.btn {
+		display: inline;
+	}
+}
