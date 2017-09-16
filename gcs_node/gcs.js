@@ -31,7 +31,8 @@ const server = http.createServer((req, res) => {
                     || files[i].name.search('.png') > -1
                     || files[i].name.search('.PNG') > -1){
                         res.write("<a href='"+ direccion + files[i].name + "'><img src='" + direccion + files[i].name + "'/></a>");                    
-                    }else if(files[i].name.search(/(.zip)|(.rar)|(.doc)|(.gdoc)|(.xls)/) > -1){
+                    }else 
+if(files[i].name.search(/([.]zip)|([.]rar)|([.]doc)|([.]gdoc)|([.]xls)/) > -1){
 			res.write("<a href='" + direccion + files[i].name + "'><p>" + files[i].name + "</p></a>");
 		    }
                 }
